@@ -1,9 +1,24 @@
 import React from 'react'
 import { LogOut, Search } from 'lucide-react';
 import OtherUsers from './OtherUsers';
+import axios from 'axios';
+import toast from 'react-hot-toast'
+import {useNavigate} from 'react-router-dom'
 
 
 const Sidebar = () => {
+    const navigate = useNavigate()
+
+    const LogoutHandler = async() =>{
+        try {
+            const res = await axios.get("http://localhost:8080/api/v1/user/logout")
+            console.log(res)
+            toast.success(res?.data?.message)
+            navigate("/login")
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className="w-80 bg-gray-800 border-r border-gray-700 flex flex-col shadow-lg">
             {/* search bar */}
@@ -24,7 +39,7 @@ const Sidebar = () => {
             {/* logout */}
             <div className="p-4 border-t border-gray-700">
                 <button className="flex items-center text-gray-300  w-full ">
-                    <div className='flex items-center gap-0 cursor-pointer hover:text-white transition-colors' >
+                    <div onClick={LogoutHandler} className='flex items-center gap-0 cursor-pointer hover:text-white transition-colors' >
                     <LogOut className="w-5 h-5 mr-2 " />
                       Logout
                     </div>
