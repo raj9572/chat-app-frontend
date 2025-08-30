@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setAuthUser } from '../redux/userSlice';
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [user, setUser] = useState({
         email: "",
         username: "",
@@ -19,14 +22,16 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            await axios.post(`http://localhost:8080/api/v1/user/login`, user, {
+           const res =  await axios.post(`http://localhost:8080/api/v1/user/login`, user, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 withCredentials: true
             });
-
+            
+            dispatch(setAuthUser(res.data))
             navigate("/");
+            
         } catch (error) {
             toast.error(error.response.data.message);
             console.log(error);
