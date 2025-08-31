@@ -26,7 +26,7 @@ const Message = ({ message }) => {
         <div className={`text-xs mt-1 ${
           authUser?._id === message?.senderId ? 'text-blue-200' : 'text-gray-400'
         }`}>
-          {message.createdAt}
+          {message?.createdAt}
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@ const Sidebar = () => {
     const [search, setSearch] = useState("")
     const dispatch = useDispatch()
     const {otherUsers} = useSelector(store => store.user)
+    
     const LogoutHandler = async() =>{
         try {
             const res = await axios.get("http://localhost:8080/api/v1/user/logout")

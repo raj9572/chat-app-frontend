@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 const Messages = () => {
 
   useGetMessages()
+
   const {messages} = useSelector(store => store.message)
 
 // if(!messages) return 
@@ -26,7 +27,7 @@ const Messages = () => {
     <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="space-y-1">
         {messages && messages?.map((message) => (
-          <Message key={message._id} message={message} />
+          <Message key={message?._id} message={message} />
         ))}
       </div>
     </div>
