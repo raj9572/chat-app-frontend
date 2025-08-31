@@ -26,12 +26,12 @@ const OtherUser = ({user}) => {
                 )}
             </div>
             <div className="ml-3 flex-1">
-                <div className="font-medium text-white">{user.fullName}</div>
-                {user.lastMessage && (
+                <div className="font-medium text-white">{user?.fullName}</div>
+                {user?.lastMessage && (
                     <div className="text-sm text-gray-400 truncate">{user.lastMessage}</div>
                 )}
             </div>
-            {user.time && (
+            {user?.time && (
                 <div className="text-xs text-gray-400">{user.time}</div>
             )}
         </div>
