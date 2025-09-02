@@ -3,6 +3,7 @@ import React, {  useState } from 'react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessages } from '../redux/messageSlice';
+import toast from 'react-hot-toast';
 
 
 const SendInput = () => {
@@ -29,10 +30,11 @@ const SendInput = () => {
             }
             
           )
+
           dispatch(setMessages([...messages , res?.data?.newMessage]))
           
         } catch (error) {
-          console.log(error)
+           toast.error(error.response.data.message);
         }
         setMessage('')
   };

@@ -1,26 +1,21 @@
-import React from 'react'
+import React, {  } from 'react'
 import Message from './Message';
 import useGetMessages from '../hook/useGetMessages';
 import { useSelector } from 'react-redux';
-
-// const messages = [
-//   { id: 1, text: 'sdjhfvhsdfv', time: '12:45', sender: 'me' },
-//   { id: 2, text: 'hello', time: '12:45', sender: 'me' },
-//   { id: 3, text: 'hjdsfkjbdsbjf', time: '12:45', sender: 'me' },
-//   { id: 4, text: 'iergefg', time: '12:45', sender: 'me' },
-//   { id: 5, text: 'hi patel I\'m good', time: '12:45', sender: 'other' },
-//   { id: 6, text: 'kya kr rhe ho?', time: '12:45', sender: 'other' }
-// ];
+import useGetRealTimeMessage from '../hook/useGetRealTimeMessage';
 
 
 
 const Messages = () => {
 
+
   useGetMessages()
+  useGetRealTimeMessage()
 
-  const {messages} = useSelector(store => store.message)
 
-// if(!messages) return 
+  const { messages } = useSelector(store => store.message)
+
+  // if(!messages) return 
 
 
   return (

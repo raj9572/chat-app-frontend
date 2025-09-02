@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../redux/userSlice';
 
 const MessageContainer = () => {
-    const {authUser, selectedUser} = useSelector(store => store.user)
+    const {authUser, selectedUser, onlineUsers} = useSelector(store => store.user)
+    const isOnline = onlineUsers?.includes(selectedUser?._id)
     const dispatch = useDispatch()
 
     useEffect(() =>{
@@ -27,7 +28,7 @@ const MessageContainer = () => {
                         </div>
                         <div className="ml-3">
                             <div className="font-medium text-white">{selectedUser?.fullName}</div>
-                            <div className="text-sm text-green-400">Online</div>
+                            <div className="text-sm text-green-400">{isOnline ? "Online" : "Offline"}</div>
                         </div>
                     </div>
 

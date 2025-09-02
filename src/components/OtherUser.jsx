@@ -1,16 +1,27 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedUser } from '../redux/userSlice'
 
-const OtherUser = ({user}) => {
+const OtherUser = ({ user }) => {
     // const isSelected = true
     const dispatch = useDispatch()
-    const {selectedUser} = useSelector(store => store.user)
+    const { selectedUser, onlineUsers } = useSelector(store => store.user)
+    const isOnline = onlineUsers.includes(user._id)
 
-    const selectedUserHandler = (user)=>{
-        dispatch(setSelectedUser(user))
-    }
-    
+
+    // const selectedUserHandler = (user)=>{
+    //     dispatch(setSelectedUser(user))
+    // }
+
+    const selectedUserHandler = useCallback(
+        (user) => {
+            dispatch(setSelectedUser(user))
+        },
+        [selectedUser] 
+    );
+
+
     return (
         <div
             className={`flex items-center p-4 hover:bg-gray-700 cursor-pointer transition-colors ${selectedUser?._id === user?._id ? 'bg-gray-700 border-r-2 border-blue-500' : ''
@@ -19,9 +30,9 @@ const OtherUser = ({user}) => {
         >
             <div className="relative">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-xl">
-                     <img src={user?.profilePhoto} alt="" />
+                    <img src={user?.profilePhoto} alt="" />
                 </div>
-                {user.online && (
+                {isOnline && (
                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-800"></div>
                 )}
             </div>

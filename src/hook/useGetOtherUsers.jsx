@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import { setOtherUsers } from '../redux/userSlice'
+import toast from 'react-hot-toast'
 
 const useGetOtherUsers = () => {
 
@@ -13,10 +14,10 @@ const useGetOtherUsers = () => {
             try {
                 axios.defaults.withCredentials = true
                 const res = await axios.get(`http://localhost:8080/api/v1/user`)
-                console.log(res)
+                
                 dispatch(setOtherUsers(res.data))
             } catch (error) {
-                console.log(error)
+                toast.error(error.response.data.message);
             }
         }
         fetchOtherUsers()
