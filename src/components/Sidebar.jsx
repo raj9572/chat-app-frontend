@@ -5,21 +5,23 @@ import axios from 'axios';
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthUser, setOtherUsers } from '../redux/userSlice';
+import {  removeOnlineUser,  setOtherUsers } from '../redux/userSlice';
+import { disconnectSocket } from '../socket';
 
 
 const Sidebar = () => {
     const navigate = useNavigate()
     const [search, setSearch] = useState("")
     const dispatch = useDispatch()
-    const {otherUsers} = useSelector(store => store.user)
+    const {authUser, otherUsers} = useSelector(store => store.user)
     
     const LogoutHandler = async() =>{
         try {
             const res = await axios.get("http://localhost:8080/api/v1/user/logout")
             toast.success(res?.data?.message)
             navigate("/login")
-            dispatch(setAuthUser(null))
+            dispatch(removeOnlineUser(authUser._id))
+            disconnectSocket();
         } catch (error) {
              toast.error(error.response.data.message);
         }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux';
-
+import ta from 'time-ago'
 const Message = ({ message }) => {
   const scroll = useRef()
   const {authUser} = useSelector(store => store.user)
@@ -26,7 +26,7 @@ const Message = ({ message }) => {
         <div className={`text-xs mt-1 ${
           authUser?._id === message?.senderId ? 'text-blue-200' : 'text-gray-400'
         }`}>
-          {message?.createdAt}
+          {message && ta.ago(message.createdAt)}
         </div>
       </div>
     </div>

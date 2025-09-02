@@ -22,11 +22,15 @@ export const userSlice = createSlice({
     },
     setOnlineUsers : (state , action) =>{
       state.onlineUsers = action.payload
+    },
+    removeOnlineUser : (state , action) =>{
+        state.onlineUsers = state.onlineUsers.filter(user => user !== action.payload)
+        state.authUser = null
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {setAuthUser , setOtherUsers,setSelectedUser, setOnlineUsers } = userSlice.actions
+export const {setAuthUser , setOtherUsers,setSelectedUser, setOnlineUsers, removeOnlineUser } = userSlice.actions
 
 export default userSlice.reducer
