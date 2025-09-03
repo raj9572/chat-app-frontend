@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedUser } from '../redux/userSlice'
 
 const OtherUser = ({ user }) => {
-    // const isSelected = true
+
     const dispatch = useDispatch()
     const { selectedUser, onlineUsers } = useSelector(store => store.user)
-    const isOnline = onlineUsers.includes(user._id)
+    const userData = onlineUsers[user._id];
 
-
+    const isOnline = userData && userData.socketId
     // const selectedUserHandler = (user)=>{
     //     dispatch(setSelectedUser(user))
     // }

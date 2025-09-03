@@ -1,17 +1,22 @@
-/* eslint-disable no-unused-vars */
+// /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Messages from './Messages';
 import SendInput from './SendInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../redux/userSlice';
+import moment from "moment";
 
 const MessageContainer = () => {
     const {authUser, selectedUser, onlineUsers} = useSelector(store => store.user)
-    const isOnline = onlineUsers?.includes(selectedUser?._id)
+    const userData = onlineUsers[selectedUser?._id]
+    const lastSeen = userData && userData.lastSeen
     const dispatch = useDispatch()
+    // moment(lastSeen).format("MMM D [at] h:mm A")
 
+    
+    
     useEffect(() =>{
         return () => dispatch(setSelectedUser(null))
     },[])
@@ -27,8 +32,12 @@ const MessageContainer = () => {
                             <img src={selectedUser?.profilePhoto} alt="" />
                         </div>
                         <div className="ml-3">
-                            <div className="font-medium text-white">{selectedUser?.fullName}</div>
-                            <div className="text-sm text-green-400">{isOnline ? "Online" : "Offline"}</div>
+                            <div className="font-medium text-xl text-white">{selectedUser?.fullName}</div>
+                            <div className="text-sm text-green-400">
+                                {
+                                !lastSeen ? "Online" : <span className='text-xs font-bold'>{moment(lastSeen).format("MMM D [at] h:mm A")}</span>
+                                }
+                            </div>
                         </div>
                     </div>
 

@@ -6,7 +6,6 @@ import { setMessages } from '../redux/messageSlice'
 import toast from 'react-hot-toast'
 const useGetMessages = () => {
     const {selectedUser} = useSelector(store => store.user)
-    // const {messages} = useSelector(store => store.message)
     const dispatch = useDispatch()
 
     useEffect(() =>{
