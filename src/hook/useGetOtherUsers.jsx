@@ -6,9 +6,9 @@ import { setOtherUsers } from '../redux/userSlice'
 import toast from 'react-hot-toast'
 
 const useGetOtherUsers = () => {
-
+     
     const dispatch = useDispatch()
-
+    // const {otherUsers} = useSelector(store => store.user)
     useEffect(()=>{
         const fetchOtherUsers = async() =>{
             try {

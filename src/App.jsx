@@ -1,51 +1,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createBrowserRouter,RouterProvider } from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import HomePage from "./components/HomePage"
 import Signup from "./components/Signup"
 import Login from "./components/Login"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setOnlineUsers } from "./redux/userSlice"
-import { getSocket, initSocket } from "./socket"
+import { disconnectSocket, getSocket, initSocket } from "./socket"
 
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    element:<HomePage/>
+    path: "/",
+    element: <HomePage />
   },
   {
-    path:"/register",
-    element:<Signup/>
+    path: "/register",
+    element: <Signup />
   },
   {
-    path:"/login",
-    element:<Login/>
+    path: "/login",
+    element: <Login />
   }
 ])
 
 
 
 function App() {
- const {authUser} = useSelector(store => store.user)
- const socket = getSocket()
- const dispatch = useDispatch()
+  const { authUser } = useSelector(store => store.user)
+  const socket = getSocket()
+  const dispatch = useDispatch()
+  useEffect(() => {
 
- useEffect(() =>{
+    if (authUser) {
+      const socket = initSocket(authUser._id);
 
-    if(authUser){
-       const socket = initSocket(authUser._id);
-
-      socket.on('getOnlineUsers',(onlineUsers) =>{
-           dispatch(setOnlineUsers(onlineUsers))
+      socket.on('getOnlineUsers', (onlineUsers) => {
+        dispatch(setOnlineUsers(onlineUsers))
       })
 
-      return () =>{
-         socket.close()
-      }
+      return () => disconnectSocket()
 
-    }else{
-      if(socket){
+    } else {
+      if (socket) {
         socket.close()
 
       }
@@ -54,14 +51,14 @@ function App() {
 
 
 
- },[authUser])
+  }, [authUser])
 
 
 
 
   return (
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   )
 }
