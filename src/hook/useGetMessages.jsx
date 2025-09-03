@@ -14,7 +14,7 @@ const useGetMessages = () => {
             try {
                
                 axios.defaults.withCredentials = true
-                const res = await axios.get(`http://localhost:8080/api/v1/message/${selectedUser?._id}`)
+                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/message/${selectedUser?._id}`)
                 dispatch(setMessages(res?.data || []))
             } catch (error) {
                 toast.error(error.response.data.message);

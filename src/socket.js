@@ -5,8 +5,10 @@ let socket;
 
 export const initSocket = (userId) => {
   if (!socket) {
-    socket = io("http://localhost:8080", {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080"
+    socket = io(backendUrl, {
       query: { userId },
+      withCredentials: true,
       transports: ["websocket"],
     });
   }
