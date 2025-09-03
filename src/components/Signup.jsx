@@ -141,7 +141,6 @@ const Signup = () => {
                             checked={user.gender === "male"}
                             onChange={() => handleCheckbox("male")}
                             id="male-checkbox"
-                            required
                         />
                         <label htmlFor="male-checkbox">Male</label>
                     </div>
@@ -151,7 +150,6 @@ const Signup = () => {
                             checked={user.gender === "female"}
                             onChange={() => handleCheckbox("female")}
                             name="" id="female-checkbox"
-                            required
                              />
                         <label htmlFor="female-checkbox">Female</label>
                     </div>

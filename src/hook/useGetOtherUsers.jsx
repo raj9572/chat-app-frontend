@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { setOtherUsers } from '../redux/userSlice'
 import toast from 'react-hot-toast'
 
 const useGetOtherUsers = () => {
      
     const dispatch = useDispatch()
-    // const {otherUsers} = useSelector(store => store.user)
+    const {onlineUsers} = useSelector(store => store.user)
     useEffect(()=>{
         const fetchOtherUsers = async() =>{
             try {
@@ -21,7 +21,7 @@ const useGetOtherUsers = () => {
             }
         }
         fetchOtherUsers()
-    },[])
+    },[onlineUsers])
 }
 
 export default useGetOtherUsers
