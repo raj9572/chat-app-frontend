@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setAuthUser } from '../redux/userSlice';
 
 const Login = () => {
@@ -22,19 +22,19 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-           const res =  await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`, user, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`, user, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 withCredentials: true
             });
-            
+
             dispatch(setAuthUser(res.data))
             navigate("/");
-            
+
         } catch (error) {
             toast.error(error.response.data.message);
-            
+
         }
         setUser({
             email: "",
@@ -45,7 +45,7 @@ const Login = () => {
     }
 
 
-    
+
     return (
         <div className='flex items-center justify-between h-screen'>
             <form onSubmit={handleSubmit} className='w-[25%] mx-auto border-2 p-2 rounded-md '>
@@ -57,6 +57,7 @@ const Login = () => {
                         onChange={(e) => { setUser({ ...user, username: e.target.value }) }}
                         id="username"
                         name="username"
+                        autoComplete="username"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your username"
                     />
@@ -73,6 +74,7 @@ const Login = () => {
                         onChange={(e) => { setUser({ ...user, email: e.target.value }) }}
                         id="email"
                         name="email"
+                        autoComplete="email"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your email"
                     />
@@ -87,6 +89,7 @@ const Login = () => {
                         onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
                         id="password"
                         name="password"
+                        autoComplete="password"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your password"
                     />
@@ -103,6 +106,8 @@ const Login = () => {
                 >
                     Login
                 </button>
+
+                <p className='text-center my-2'> don't have account <Link to={"/register"} className="text-blue-600 hover:text-blue-800 underline cursor-pointer">SignUp</Link></p>
             </form>
         </div>
     )

@@ -7,21 +7,28 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setOnlineUsers } from "./redux/userSlice"
 import { disconnectSocket, getSocket, initSocket } from "./socket"
+import RequireUser from "./components/RequireUser"
+import OnlyIfNotLogIn from "./components/OnlyIfNotLogIn"
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />
+    element: <RequireUser />,   
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,  
+      }
+    ]
   },
   {
-    path: "/register",
-    element: <Signup />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  }
+  element: <OnlyIfNotLogIn />,   
+  children: [
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Signup /> },
+  ],
+}
 ])
 
 

@@ -64,13 +64,12 @@ const Signup = () => {
                         onChange={(e) => { setUser({ ...user, username: e.target.value }) }}
                         id="username"
                         name="username"
+                        autoComplete="username"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your username"
+                        required
                     />
                 </div>
-
-
-                <p className=' font-bold text-center'>OR</p>
 
                 <div className="mb-2">
                     <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
@@ -80,8 +79,10 @@ const Signup = () => {
                         onChange={(e) => { setUser({ ...user, email: e.target.value }) }}
                         id="email"
                         name="email"
+                        autoComplete="email"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your email"
+                        required
                     />
                 </div>
 
@@ -93,8 +94,10 @@ const Signup = () => {
                         onChange={(e) => { setUser({ ...user, fullName: e.target.value }) }}
                         id="name"
                         name="name"
+                        autoComplete="name"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your name"
+                        required
                     />
                 </div>
 
@@ -106,8 +109,10 @@ const Signup = () => {
                         onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
                         id="password"
                         name="password"
+                        autoComplete="password"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your password"
+                        required
                     />
                     {showPassword ? <FaEye onClick={() => setShowPassword(!showPassword)} className='absolute right-2 top-11 text-xl' /> : <FaEyeSlash onClick={() => setShowPassword(!showPassword)} className='absolute right-2 top-11 text-xl' />}
 
@@ -120,8 +125,10 @@ const Signup = () => {
                         onChange={(e) => { setUser({ ...user, confirmPassword: e.target.value }) }}
                         id="confirm-password"
                         name="confirm-password"
+                        autoComplete="new-password"
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your password"
+                        required
                     />
                     {showPassword ? <FaEye onClick={() => setShowPassword(!showPassword)} className='absolute right-2 top-11 text-xl' /> : <FaEyeSlash onClick={() => setShowPassword(!showPassword)} className='absolute right-2 top-11 text-xl' />}
 
@@ -133,8 +140,8 @@ const Signup = () => {
                             type="checkbox"
                             checked={user.gender === "male"}
                             onChange={() => handleCheckbox("male")}
-                            defaultChecked
                             id="male-checkbox"
+                            required
                         />
                         <label htmlFor="male-checkbox">Male</label>
                     </div>
@@ -143,7 +150,9 @@ const Signup = () => {
                             type="checkbox"
                             checked={user.gender === "female"}
                             onChange={() => handleCheckbox("female")}
-                            name="" id="female-checkbox" />
+                            name="" id="female-checkbox"
+                            required
+                             />
                         <label htmlFor="female-checkbox">Female</label>
                     </div>
                 </div>
@@ -154,6 +163,7 @@ const Signup = () => {
                 >
                     Sign Up
                 </button>
+                  <p className='text-center my-2'>have already account <Link to={"/login"} className="text-blue-600 hover:text-blue-800 underline cursor-pointer">SignIn</Link></p>
             </form>
         </div>
     )
