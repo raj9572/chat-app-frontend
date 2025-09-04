@@ -29,7 +29,8 @@ const Login = () => {
                 withCredentials: true
             });
 
-            dispatch(setAuthUser(res.data))
+            dispatch(setAuthUser(res?.data?.user))
+            localStorage.setItem("chat_app_token", res.data.token)
             navigate("/");
 
         } catch (error) {

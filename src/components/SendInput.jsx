@@ -11,6 +11,7 @@ const SendInput = () => {
      const dispatch = useDispatch()
      const {selectedUser} = useSelector(store => store.user)
      const {messages} = useSelector(store => store.message)
+     const token = localStorage.getItem("chat_app_token")
   //    const handleKeyPress = (e) => {
   //   if (e.key === 'Enter' && !e.shiftKey) {
   //     e.preventDefault();
@@ -19,12 +20,14 @@ const SendInput = () => {
   // };
 
      const handleSendMessage = async() => {
+      
         try {
           const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/message/send/${selectedUser?._id}`,
             {message},
             {
               headers:{
-              'Content-Type':"application/json"
+              'Content-Type':"application/json",
+               Authorization: `Bearer ${token}`,
             },
             withCredentials:true
             }
