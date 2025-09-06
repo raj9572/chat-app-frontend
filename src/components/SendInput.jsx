@@ -19,8 +19,9 @@ const SendInput = () => {
   //   }
   // };
 
-     const handleSendMessage = async() => {
-      
+     const handleSendMessage = async(e) => {
+         e.preventDefault()
+         
         try {
           const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/message/send/${selectedUser?._id}`,
             {message},
@@ -43,7 +44,7 @@ const SendInput = () => {
   };
   return (
     <div className="bg-gray-800 border-t border-gray-700 p-4">
-      <div className="flex items-center space-x-3">
+      <form onSubmit={handleSendMessage} className="flex items-center space-x-3">
         <input
           type="text"
           value={message}
@@ -58,7 +59,7 @@ const SendInput = () => {
         >
           <Send className="w-5 h-5" />
         </button>
-      </div>
+      </form>
     </div>
   )
 }

@@ -3,7 +3,7 @@
 
 import React, { useEffect } from 'react'
 import Messages from './Messages';
-import SendInput from './SendInput';
+import SendInput from './SendInputText';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../redux/userSlice';
 import moment from "moment";
