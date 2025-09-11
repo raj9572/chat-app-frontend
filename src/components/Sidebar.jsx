@@ -16,7 +16,8 @@ const Sidebar = () => {
     const [search, setSearch] = useState("")
     const dispatch = useDispatch()
     const { otherUsers } = useSelector(store => store.user)
-
+     const token = localStorage.getItem("chat_app_token")
+     
     const LogoutHandler = async () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`)
@@ -34,7 +35,11 @@ const Sidebar = () => {
     const searchSubmitHandler = async(query) => {
         // console.log(query)
         
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user?name=${query}`)
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user?name=${query}`,{
+                    headers: {
+                        Authorization: `Bearer ${token}`,   
+                    },
+                })
         
         dispatch(setOtherUsers(res?.data))
        
