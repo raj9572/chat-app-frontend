@@ -22,7 +22,8 @@ const Message = ({ message }) => {
             : 'bg-gray-700 text-white rounded-bl-md'
         }`}
       >
-        <div className="text-sm">{message?.message}</div>
+        <div>{ message?.image &&  <img src={message?.image} alt="" className='w-[150px] rounded-lg ' /> }</div>
+        <div className="text-sm font-semibold" >{message?.message}</div>
         <div className={`text-xs mt-1 ${
           authUser?._id === message?.senderId ? 'text-blue-200' : 'text-gray-400'
         }`}>
