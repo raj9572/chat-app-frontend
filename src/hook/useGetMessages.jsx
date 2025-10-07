@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMessages } from '../redux/messageSlice'
 import toast from 'react-hot-toast'
+import { removeNotification } from '../redux/userSlice'
 const useGetMessages = () => {
     const { selectedUser } = useSelector(store => store.user)
     const dispatch = useDispatch()
@@ -19,9 +20,11 @@ const useGetMessages = () => {
                         Authorization: `Bearer ${token}`,  
                     },
                 })
+
+                dispatch(removeNotification(selectedUser?._id))
                 dispatch(setMessages(res?.data || []))
             } catch (error) {
-                toast.error(error.response.data.message);
+                toast.error(error.response?.data?.message);
             }
         }
         fetchMessages()
